@@ -1,5 +1,6 @@
 ea.hooks.addAction("init", "ea", () => {
     const EALoginRegister = function ($scope, $) {
+        const isInsidePopup = $scope.closest("[data-elementor-type='popup']").length;
 
         const $wrap = $scope.find('.eael-login-registration-wrapper');// cache wrapper
         const widgetId = $wrap.data('widget-id');
@@ -66,7 +67,7 @@ ea.hooks.addAction("init", "ea", () => {
             }
         }
 
-        if (recaptchaAvailable && isEditMode){
+        if (recaptchaAvailable && (isEditMode ||  isInsidePopup)){
             // on elementor editor, window load event already fired, so run recaptcha
             onloadLRcb();
         }else{
