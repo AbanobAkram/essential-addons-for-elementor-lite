@@ -15,18 +15,17 @@ $product = wc_get_product(get_the_ID());
 if ($settings['eael_product_grid_style_preset'] == 'eael-product-simple' || $settings['eael_product_grid_style_preset'] == 'eael-product-reveal') {
     echo '<li class="product">
         <a href="' . $product->get_permalink() . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
-            ' . $product->get_image('woocommerce_thumbnail') . '
+            ' . $product->get_image($settings['eael_product_grid_image_size_size']) . '
             <h2 class="woocommerce-loop-product__title">' . $product->get_title() . '</h2>
             ' . ($settings['eael_product_grid_rating'] != 'yes' ? '' : wc_get_rating_html($product->get_average_rating(), $product->get_rating_count())) . '
-            '.( ! $product->managing_stock() && ! $product->is_in_stock() ? '<span class="outofstock-badge">'.__('Stock ', 'essential-addons-for-elementor-lite'). '<br />' . __('Out', 'essential-addons-for-elementor-lite').'</span>' : ($product->is_on_sale() ? '<span class="onsale">' . __('Sale!', 'essential-addons-for-elementor-lite') . '</span>' : '') ).'
-            <span class="price">' . $product->get_price_html() . '</span>
+            '.( ! $product->managing_stock() && ! $product->is_in_stock() ? '<span class="outofstock-badge">'.__('Stock ', 'essential-addons-for-elementor-lite'). '<br />' . __('Out', 'essential-addons-for-elementor-lite').'</span>' : ($product->is_on_sale() ? '<span class="onsale">' . __('Sale!', 'essential-addons-for-elementor-lite') . '</span>' : '') ).( $settings['eael_product_grid_price'] == "yes" ? '<div class="eael-product-price">' . $product->get_price_html() . '</div>' : '' ) . '
         </a>';
         woocommerce_template_loop_add_to_cart();
     echo '</li>';
 } else if ($settings['eael_product_grid_style_preset'] == 'eael-product-overlay') {
     echo '<li class="product">
         <div class="overlay">
-            ' . $product->get_image('woocommerce_thumbnail') . '
+            ' . $product->get_image($settings['eael_product_grid_image_size_size']) . '
             <div class="button-wrap clearfix">
                 <a href="' . $product->get_permalink() . '" class="product-link"><span class="fas fa-link"></span></a>';
                 woocommerce_template_loop_add_to_cart();
@@ -34,8 +33,7 @@ if ($settings['eael_product_grid_style_preset'] == 'eael-product-simple' || $set
         </div>
         <h2 class="woocommerce-loop-product__title">' . $product->get_title() . '</h2>
         ' . ($settings['eael_product_grid_rating'] != 'yes' ? '' : wc_get_rating_html($product->get_average_rating(), $product->get_rating_count())) . '
-        ' . ($product->is_on_sale() ? '<span class="onsale">' . __('Sale!', 'essential-addons-for-elementor-lite') . '</span>' : '') . '
-        <span class="price">' . $product->get_price_html() . '</span>
+        ' . ($product->is_on_sale() ? '<span class="onsale">' . __('Sale!', 'essential-addons-for-elementor-lite') . '</span>' : '') . ( $settings['eael_product_grid_price'] == "yes" ? '<div class="eael-product-price">' . $product->get_price_html() . '</div>' : '' ) . '
     </li>';
 } else if (($settings['eael_product_grid_style_preset'] == 'eael-product-preset-5') || ($settings['eael_product_grid_style_preset'] == 'eael-product-preset-6') || ($settings['eael_product_grid_style_preset'] == 'eael-product-preset-7')) {
 	if ( true === wc_get_loop_product_visibility( $product->get_id() ) || $product->is_visible() ) {
@@ -159,8 +157,8 @@ if ($settings['eael_product_grid_style_preset'] == 'eael-product-simple' || $set
 					?>
 					<div class="eael-product-title">
 						<?php
-						echo '<a href="' . $product->get_permalink() . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
-                                                <h2>'. $product->get_title() .'</h2></a>';
+            echo '<a href="' . $product->get_permalink() . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
+            <h2>'. $product->get_title() .'</h2></a>';
 						?>
 					</div>
 				</div>
@@ -190,10 +188,10 @@ if ($settings['eael_product_grid_style_preset'] == 'eael-product-simple' || $set
 					<?php
 					if ($settings['eael_product_list_style_preset'] == 'eael-product-list-preset-2') {
 						echo '<div class="eael-product-title">
-                                                <a href="' . $product->get_permalink() . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
-                                                    <h2>'. $product->get_title() .'</h2>
-                                                </a>
-                                              </div>';
+                    <a href="' . $product->get_permalink() . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
+                        <h2>'. $product->get_title() .'</h2>
+                    </a>
+                  </div>';
 						if ( ($settings['eael_product_grid_excerpt'] == true) && has_excerpt() ) {
 							echo '<div class="eael-product-excerpt">';
 							echo '<p>' . wp_trim_words(strip_shortcodes(get_the_excerpt() ? get_the_excerpt() :
@@ -212,12 +210,12 @@ if ($settings['eael_product_grid_style_preset'] == 'eael-product-simple' || $set
 						     ($settings['eael_product_grid_rating'] != 'yes' ? '' : wc_get_rating_html
 						     ($product->get_average_rating(), $product->get_rating_count())).
 						     '</div>
-                                              <div class="title-wrap">
-                                                  <div class="eael-product-title">
-                                                    <a href="' . $product->get_permalink() . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
-                                                        <h2>'. $product->get_title() .'</h2>
-                                                    </a>
-                                                  </div>';
+                  <div class="title-wrap">
+                      <div class="eael-product-title">
+                        <a href="' . $product->get_permalink() . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
+                            <h2>'. $product->get_title() .'</h2>
+                        </a>
+                      </div>';
 						if ( ($settings['eael_product_grid_excerpt'] == true) && has_excerpt() ) {
 							echo '<div class="eael-product-excerpt">';
 							echo '<p>' . wp_trim_words(strip_shortcodes(get_the_excerpt() ? get_the_excerpt() :
@@ -229,10 +227,10 @@ if ($settings['eael_product_grid_style_preset'] == 'eael-product-simple' || $set
 						echo ($settings['eael_product_grid_rating'] != 'yes' ? '' : wc_get_rating_html
 							($product->get_average_rating(), $product->get_rating_count())).
 						     '<div class="eael-product-title">
-                                                <a href="' . $product->get_permalink() . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
-                                                    <h2>'. $product->get_title() .'</h2>
-                                                </a>
-                                              </div>';
+                    <a href="' . $product->get_permalink() . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
+                        <h2>'. $product->get_title() .'</h2>
+                    </a>
+                  </div>';
 						if ( ($settings['eael_product_grid_excerpt'] == true) && has_excerpt() ) {
 							echo '<div class="eael-product-excerpt">';
 							echo '<p>' . wp_trim_words(strip_shortcodes(get_the_excerpt() ? get_the_excerpt() :
@@ -245,11 +243,11 @@ if ($settings['eael_product_grid_style_preset'] == 'eael-product-simple' || $set
 
 					} else {
 						echo '<div class="eael-product-title">
-                                                <a href="' . $product->get_permalink() . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
-                                                    <h2>'. $product->get_title() .'</h2>
-                                                </a>
-                                              </div>
-                                              <div class="eael-product-price">'.$product->get_price_html().'</div>'.
+                    <a href="' . $product->get_permalink() . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
+                        <h2>'. $product->get_title() .'</h2>
+                    </a>
+                  </div>
+                  <div class="eael-product-price">'.$product->get_price_html().'</div>'.
 						     ($settings['eael_product_grid_rating'] != 'yes' ? '' : wc_get_rating_html
 						     ($product->get_average_rating(), $product->get_rating_count()));
 						if ( ($settings['eael_product_grid_excerpt'] == true) && has_excerpt() ) {
