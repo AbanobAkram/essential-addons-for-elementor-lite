@@ -2831,6 +2831,7 @@ class Product_Grid extends Widget_Base {
                 'operator' => 'NOT IN',
             ],
         ];
+        $args['posts_per_page'] = $settings['eael_product_grid_products_count'] ?: 4;
         // price & sku filter
         if ( $settings['orderby'] == '_price' ) {
             $args['orderby']  = 'meta_value_num';
@@ -2931,7 +2932,7 @@ class Product_Grid extends Widget_Base {
             'eael_product_grid_excerpt'                     => $settings['eael_product_grid_excerpt'],
             'eael_product_grid_excerpt_length'              => $settings['eael_product_grid_excerpt_length'],
             'eael_product_grid_excerpt_expanison_indicator' => $settings['eael_product_grid_excerpt_expanison_indicator'],
-            'eael_product_grid_image_size'                  => $settings['eael_product_grid_image_size'],
+            //'eael_product_grid_image_size'                  => $settings['eael_product_grid_image_size'],
             'eael_product_sale_badge_preset'                => $settings['eael_product_sale_badge_preset'],
             'eael_product_sale_badge_alignment'             => $settings['eael_product_sale_badge_alignment'],
             'eael_product_action_buttons_preset'            => $settings['eael_product_action_buttons_preset'],
