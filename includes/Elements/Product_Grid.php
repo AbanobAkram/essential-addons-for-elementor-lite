@@ -2815,23 +2815,17 @@ class Product_Grid extends Widget_Base {
     }
 
     protected function render() {
-        $settings = $this->get_settings_for_display();
-        $args     = Helper::get_query_args( $settings );
-        $args     = Helper::get_dynamic_args( $settings, $args );
         if ( !apply_filters( 'eael/is_plugin_active', 'woocommerce/woocommerce.php' ) ) {
             return;
         }
+        $settings = $this->get_settings_for_display();
+        $settings = Helper::fix_old_query($settings);
+        $args = Helper::get_query_args($settings);
+        $args = Helper::get_dynamic_args($settings, $args);
 
-        $args['tax_query'] = [
-            'relation' => 'AND',
-            [
-                'taxonomy' => 'product_visibility',
-                'field'    => 'name',
-                'terms'    => ['exclude-from-search', 'exclude-from-catalog'],
-                'operator' => 'NOT IN',
-            ],
-        ];
+        $args['post_type'] = 'product';
         $args['posts_per_page'] = $settings['eael_product_grid_products_count'] ?: 4;
+        
         // price & sku filter
         if ( $settings['orderby'] == '_price' ) {
             $args['orderby']  = 'meta_value_num';
