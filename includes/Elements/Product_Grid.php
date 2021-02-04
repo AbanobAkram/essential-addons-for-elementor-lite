@@ -2848,7 +2848,7 @@ class Product_Grid extends Widget_Base {
             ];
         }
 
-        if ( 'true' == $settings['show_load_more'] ) {
+        if ( $settings['product_offset'] > 0 ) {
             $args['offset'] = $settings['product_offset'];
         }
 
@@ -2952,6 +2952,7 @@ class Product_Grid extends Widget_Base {
 
         $template = $this->get_template( $settings['eael_dynamic_template_Layout'] );
         if ( file_exists( $template ) ) {
+          error_log(print_r( $args, 1 ));
             $query = new \WP_Query( $args );
             if ( $query->have_posts() ) {
                 while ( $query->have_posts() ) {
